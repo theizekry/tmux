@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Define URL for your best tmux.conf file
-TMUX_CONF_URL="https://your-link-to-tmux.conf"
+TMUX_CONF_URL="https://raw.githubusercontent.com/theizekry/tmux/refs/heads/main/.tmux.conf"
 
 # Define tmux config path
 TMUX_CONF_PATH="$HOME/.tmux.conf"
