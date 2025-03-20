@@ -45,7 +45,7 @@ This configuration includes powerful plugins to improve Tmux usability.
 
 After installation, start Tmux and load the new configuration:
 
-Inside Tmux, install plugins with:
+Inside Tmux, install plugins with: Ctrl + A then I
 
 To reload the configuration:
 
