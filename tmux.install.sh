@@ -8,14 +8,9 @@ TMUX_CONF_PATH="$HOME/.tmux.conf"
 # Define TPM path
 TPM_PATH="$HOME/.tmux/plugins/tpm"
 
-# Ensure ~/.tmux.conf exists, if not, download it
-if [ ! -f "$TMUX_CONF_PATH" ]; then
-    echo "📥 Downloading tmux.conf..."
-    wget -q -O "$TMUX_CONF_PATH" "$TMUX_CONF_URL"
-else
-    echo "🔄 Updating tmux.conf..."
-    wget -q -O "$TMUX_CONF_PATH" "$TMUX_CONF_URL"
-fi
+# Download .tmux.conf
+echo "📥 Downloading tmux.conf..."
+wget -q -O "$TMUX_CONF_PATH" "$TMUX_CONF_URL"
 
 # Ensure TPM (Tmux Plugin Manager) is installed
 if [ ! -d "$TPM_PATH" ]; then
@@ -37,8 +32,8 @@ add_alias_if_missing() {
 }
 
 # Add aliases to ~/.zshrc only if they are missing
-add_alias_if_missing 'alias tmuxconfig="tmux source-file ~/.tmux.conf"'
-add_alias_if_missing 'alias tmuxedit="nano ~/.tmux.conf && tmuxconfig"'
+add_alias_if_missing 'alias tmuxsource="tmux source-file ~/.tmux.conf"'
+add_alias_if_missing 'alias tmuxconfig="nano ~/.tmux.conf"'
 
 # Source the new config
 # Check if inside a Tmux session
