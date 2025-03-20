@@ -2,15 +2,17 @@
 # Tmux Auto-Setup Script
 ### This script sets up Tmux with enhanced usability, improved navigation, and useful plugins for an optimized workflow.
 
-#### Tmux is a terminal multiplexer that lets you manage multiple terminal sessions in one window. You can split windows into panes, detach and reattach sessions, and keep workflows running even after closing your terminal—making it a great tool for developers and system administrators.
+#### Tmux is a terminal multiplexer that lets you manage multiple terminal sessions in one window.  
+You can split windows into panes, detach and reattach sessions, and keep workflows running even after closing your terminal—making it a great tool for developers and system administrators.
 
-📖 Learn more about Tmux: Tmux GitHub | Official Documentation
+📖 Learn more about Tmux: [Tmux GitHub](https://github.com/tmux/tmux) | [Official Documentation](https://man7.org/linux/man-pages/man1/tmux.1.html)
 
-This script enhances your Tmux setup with better usability, smoother navigation, and powerful plugins. It builds on your current configuration, making Tmux more customizable and efficient.
+This script enhances your Tmux setup with better usability, smoother navigation, and powerful plugins.  
+It builds on your current configuration, making Tmux more customizable and efficient.
 
-It also includes Tmux Plugin Manager (TPM), which makes installing and managing Tmux plugins effortless.
+It also includes [Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm), which makes installing and managing Tmux plugins effortless.
 
-📖 Learn more about TPM: Tmux Plugin Manager (TPM) GitHub
+📖 Learn more about TPM: [Tmux Plugin Manager (TPM) GitHub](https://github.com/tmux-plugins/tpm)
 
 --------------------------------------------------------------------------------
 
