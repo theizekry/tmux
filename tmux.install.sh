@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Installing prerequisites 
+
+echo "Installing wget curl net-tools zsh tmux and git"
+
+apt update && apt install -y curl nano net-tools wget zsh tmux git unzip fontconfig
+
+echo "Installing Hack Font to support icons."   
+
+mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts && curl -LO https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip && unzip Hack.zip && rm Hack.zip && fc-cache -fv && cd -
+PROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/Terminal/Legacy/Profiles:/:$PROFILE/" font 'Hack Nerd Font Mono 20'
+
+
 TMUX_CONF_URL="https://raw.githubusercontent.com/theizekry/tmux/refs/heads/main/.tmux.conf"
 
 # Define tmux config path
