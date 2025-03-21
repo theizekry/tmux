@@ -18,9 +18,7 @@ It also includes [Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm
 
 ## Installation & Usage
 ```
-wget -q -O tmux.install.sh https://raw.githubusercontent.com/theizekry/tmux/main/tmux.install.sh
-chmod +x tmux.install.sh
-./tmux.install.sh
+wget -qO-  https://raw.githubusercontent.com/theizekry/tmux/main/tmux.install.sh  | bash
 ```
 
 Run the following commands to apply the configuration:
