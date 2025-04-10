@@ -21,6 +21,11 @@ It also includes [Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm
 wget -qO-  https://raw.githubusercontent.com/theizekry/tmux/main/tmux.install.sh  | bash
 ```
 
+## If you're a Mac user use this instead
+```
+wget -qO-  https://raw.githubusercontent.com/theizekry/tmux/main/tmux.install.mac.sh  | bash
+```
+
 Run the following commands to apply the configuration:
 
 This will:👉 Apply Tmux configurations👉 Set up Tmux Plugin Manager (TPM)
