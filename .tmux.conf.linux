@@ -1,0 +1,59 @@
+# -----------------------------------------------------------------------------
+# THEIZEKRY'S FINAL STABLE CONFIG (VPN PING MONITOR)
+# -----------------------------------------------------------------------------
+
+# --- KEY BINDINGS ---
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+
+# Reload config instantly
+unbind r
+bind r source-file ~/.tmux.conf
+
+# Clean Docker system with Prefix + D
+bind D confirm-before -p "Clean Docker system? (y/n)" "run-shell 'docker system prune -f'"
+
+# --- PERFORMANCE ---
+set -g status-interval 5               # Keep it snappy at 5 seconds
+set -g escape-time 0                   # Zero delay for commands
+
+# --- GENERAL SETTINGS ---
+set -g mouse on
+set -g base-index 1
+set -g renumber-windows on
+set -g history-limit 1000000
+set -g default-terminal "screen-256color"
+
+# --- VPN MONITOR (PING BASED) ---
+# Accurate detection for Mac Mini M2 Pro based on your specific Private IP
+#vpn_status="#[fg=green]#{?#(ping -c 1 -t 1 10.10.23.81 > /dev/null && echo 'active'),VPN,#[fg=red,bold]VPN OFF}"
+# Works on macOS (-t) and Linux (-W)
+vpn_status="#[fg=green]#{?#(ping -c 1 -W 1 10.10.23.81 > /dev/null 2>&1 || ping -c 1 -t 1 10.10.23.81 > /dev/null 2>&1 && echo 'active'),VPN,#[fg=red,bold]VPN OFF}"
+
+# --- UI & DESIGN ---
+set -g status-style 'bg=#1e1e2e,fg=white'
+set -g status-left-length 30
+set -g status-left "#{?client_prefix,#[fg=black]#[bg=yellow] #S #[default],#[fg=white]#[bg=blue] #S #[default]} "
+
+set -g status-right-length 150
+set -g status-right "#[fg=white,bg=#313244] $vpn_status #[fg=white]| CPU: #{cpu_percentage} | RAM: #{ram_percentage} | Used: #{df_percent} | %a %H:%M "
+
+# Active/Inactive window styling
+# Current window: White text, bold, with blue numbers
+setw -g window-status-current-style 'fg=white,bg=#44475a,bold'
+setw -g window-status-current-format ' #[fg=white]#I:#[fg=white]#W '
+
+# Inactive windows: Greyish text with white numbers for clarity
+setw -g window-status-style 'fg=#6272a4,bg=#1e1e2e'
+setw -g window-status-format ' #[fg=white]#I:#[fg=#6272a4]#W '
+
+# --- PLUGINS ---
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tassaron/tmux-df'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+
+# Initialize TPM
+run '~/.tmux/plugins/tpm/tpm'
