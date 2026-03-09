@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# THEIZEKRY'S FINAL STABLE CONFIG (VPN PING MONITOR)
+# THEIZEKRY'S ULTIMATE TMUX CONFIG
 # -----------------------------------------------------------------------------
 
 # --- KEY BINDINGS ---
@@ -7,16 +7,21 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-# Reload config instantly
+# Reload config
 unbind r
 bind r source-file ~/.tmux.conf
 
-# Clean Docker system with Prefix + D
-bind D confirm-before -p "Clean Docker system? (y/n)" "run-shell 'docker system prune -f'"
+# --- NEW: LAZYGIT SHORTCUT ---
+# Press Prefix + g to open LazyGit in a new window
+bind g new-window -n "LazyGit" -c "#{pane_current_path}" "lazygit"
+
+# --- NEW: TINKER QUICK-RESTART ---
+# Press Prefix + T to kill current tinker and start fresh (Assumes you are in a Laravel project)
+bind T send-keys "exit" Enter "php artisan tinker" Enter
 
 # --- PERFORMANCE ---
-set -g status-interval 5               # Keep it snappy at 5 seconds
-set -g escape-time 0                   # Zero delay for commands
+set -g status-interval 5
+set -g escape-time 0
 
 # --- GENERAL SETTINGS ---
 set -g mouse on
@@ -25,13 +30,11 @@ set -g renumber-windows on
 set -g history-limit 1000000
 set -g default-terminal "screen-256color"
 
-# --- VPN MONITOR (PING BASED) ---
-# Accurate detection for Mac Mini M2 Pro based on your specific Private IP
-#vpn_status="#[fg=green]#{?#(ping -c 1 -t 1 10.10.23.81 > /dev/null && echo 'active'),VPN,#[fg=red,bold]VPN OFF}"
-# Works on macOS (-t) and Linux (-W)
+# --- VPN MONITOR (THE TESTED VERSION) ---
+#vpn_styatus="#[fg=green]#{?#(ping -c 1 -t 1 10.10.23.81 > /dev/null && echo 'active'),VPN,#[fg=red,bold]VPN OFF}"
 vpn_status="#[fg=green]#{?#(ping -c 1 -W 1 10.10.23.81 > /dev/null 2>&1 || ping -c 1 -t 1 10.10.23.81 > /dev/null 2>&1 && echo 'active'),VPN,#[fg=red,bold]VPN OFF}"
 
-# --- UI & DESIGN ---
+# --- STATUS BAR DESIGN ---
 set -g status-style 'bg=#1e1e2e,fg=white'
 set -g status-left-length 30
 set -g status-left "#{?client_prefix,#[fg=black]#[bg=yellow] #S #[default],#[fg=white]#[bg=blue] #S #[default]} "
@@ -39,21 +42,28 @@ set -g status-left "#{?client_prefix,#[fg=black]#[bg=yellow] #S #[default],#[fg=
 set -g status-right-length 150
 set -g status-right "#[fg=white,bg=#313244] $vpn_status #[fg=white]| CPU: #{cpu_percentage} | RAM: #{ram_percentage} | Used: #{df_percent} | %a %H:%M "
 
-# Active/Inactive window styling
-# Current window: White text, bold, with blue numbers
-setw -g window-status-current-style 'fg=white,bg=#44475a,bold'
-setw -g window-status-current-format ' #[fg=white]#I:#[fg=white]#W '
+# --- COPY MODE (VIM STYLE) ---
+setw -g mode-keys vi
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-# Inactive windows: Greyish text with white numbers for clarity
-setw -g window-status-style 'fg=#6272a4,bg=#1e1e2e'
-setw -g window-status-format ' #[fg=white]#I:#[fg=#6272a4]#W '
-
-# --- PLUGINS ---
+# --- PLUGINS (TPM) ---
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tassaron/tmux-df'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'christoomey/vim-tmux-navigator'
+
+# Logging Plugin (Saves terminal output to files)
+set -g @plugin 'tmux-plugins/tmux-logging'
+
+# --- PERSISTENCE (RESTORE SESSIONS) ---
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# Automatic restore settings
+set -g @continuum-restore 'on'
+set -g @resurrect-capture-pane-contents 'on'
 
 # Initialize TPM
 run '~/.tmux/plugins/tpm/tpm'
